@@ -1,12 +1,7 @@
-# Button Based Delay
-Now that you have begun to familiarize yourself with the TIMER modules, why don't we make an interesting change to our code from the last lab.
+James Merrill
+Intro to Embedded Systems
+September 28 2018
+# Read Me
 
-## Task
-Setup your microcontroller to initially blink and LED at a rate of 10Hz upon restarting or powering up. Then utilizing one of the buttons on board, a user should be able to set the delay or blinking rate of the LED by holding down a button. The duration in which the button is depressed should then become the new rate at which the LED blinks. As previously stated, you most likely will want to take advantage of the fact that TIMER modules exist and see if you can let them do a bulk of the work for you.
+The final part of this lab is more interesting then the previous parts since the interrupt function code is more complicated.  The premise of this activity is to store the amount of time that you press down a button for and then have the an LED flash on and off with the frequency that you pressed the button, (1/Period).  The set up starts out like every other activity with setting the inputs and outputs of the program.  The pull down resistor for the button is enabled as well.  A proper clock also needs to be made, in my case it is the ACLK with a divider of 8 and in the mode were it counts up to CCR0 (where you will be storing the time you hold the button down for). Once this is done you must enable the interrupt, clear the interrupt flags and set it to a proper low power mode (LPM0 works in this case).  For this programs there are two interrupt functions, one controlled by TIMER A0 and the other controlled by the button.  The button is much more complicated as the timer interrupt simply toggles on and off.  For the button interrupt, the function checks for the rising edge of the button, if the programs finds this it then switches to trying to find the falling edge.  It does this in order to find the period between the button being pressed and released.  It clears the timer and then sets an interrupt at the point were you released the button.  During this the green LED also turns on to show you when you're pressing the button. The interrupt gets set to detecting the rising edge and finally all of the flags are cleared.  This creates a LED whose frequency of blinking you can control.
 
-### Extra Work
-## Reset Button
-What is a piece of electronics without a reset button? Instead of relying on resetting your processor using the built in reset circuitry, why not instead use another button to reset the rate back to 10Hz.
-
-## Button Based Hertz
-Most likely using two buttons, what if instead of making a delay loop based on the time, the user could instead enter a mode where the number of times they pressed the button would become the number in Hz of the blinking rate? How do you think you would implement that with just one button?
