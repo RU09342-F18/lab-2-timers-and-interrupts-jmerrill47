@@ -7,7 +7,7 @@ int main(void)
     P1DIR |= BIT0;                      // Sets P1.0 to be an output
     P1DIR &= ~BIT3;                     // Sets P1.3 to be an input
     P1DIR |= BIT6;                      // Sets P1.6 to be an output
-    P1OUT &= ~BIT6;
+    P1OUT &= ~BIT6;                     // Set P1.6 output to be initially zero
     P1REN |= BIT3;                      // Enables the pull up-down resistor
     P1OUT |= BIT3;                      // Sets the pull down resistor
 
